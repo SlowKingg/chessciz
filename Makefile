@@ -1,5 +1,5 @@
 C = gcc
-flag = -c -Wall
+flag = -c -Wall -Werror
 
 all: chess
 chess: make Main.o ChessPrint.o
@@ -15,5 +15,6 @@ make:
 	mkdir -p bin
 	mkdir -p build
 
+.PHONY: clean
 clean:
 	rm -rf ./build/*.o

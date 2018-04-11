@@ -7,8 +7,8 @@ int main () {
     Board game;
     
     char move[15];
-    
-    gets(move);
+
+    fgets(move, sizeof (move), stdin);
     printf ("%s\n", move);
     
     init_board(&game);

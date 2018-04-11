@@ -58,7 +58,7 @@ void print_board(Board board) {
             } else {
             	printf ("* ");
             }
-            
+
             if (col == 7) {
                 printf("\n");
             }
@@ -66,11 +66,12 @@ void print_board(Board board) {
     }
     printf ("   ---------------\n");
     printf ("   A B C D E F G H \n");
+	printf("\n");
 }
 
 void init_board(Board* board){
     int line,col;
-    
+
     for (col = 0; col < 8; col++) {
         for(line = 0; line < 8; line++) {
             board->cell[line][col].fill = false;
@@ -80,21 +81,21 @@ void init_board(Board* board){
 
 void init_default_board(Board* board) {
     int line,col;
-    
+
     line = 1;
 
     for (col = 0; col <= 7; col++) {
         board->cell[line][col].fill = 1;
         board->cell[line][col].piecetype = Pawn;
-        board->cell[line][col].piececolor = Black;               
+        board->cell[line][col].piececolor = Black;
     }
 
     line = 6;
 
     for (col = 0; col <= 7; col++) {
         board->cell[line][col].fill = 1;
-        board->cell[line][col].piecetype = Pawn;   
-        board->cell[line][col].piececolor = White;        
+        board->cell[line][col].piecetype = Pawn;
+        board->cell[line][col].piececolor = White;
     }
 
     line = 0;
@@ -135,7 +136,7 @@ void init_default_board(Board* board) {
     }
 
     line = 7;
-    
+
     for (col = 0; col <= 7; col++) {
         switch(col){
         case 0:

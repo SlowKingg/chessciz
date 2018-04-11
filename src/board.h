@@ -31,4 +31,6 @@ typedef struct {
     Cell cell [8][8];
 } Board;
 
+int piece_check (char *move, Board* board);
+
 #endif

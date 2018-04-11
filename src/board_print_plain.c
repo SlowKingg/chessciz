@@ -1,56 +1,62 @@
 #include "board.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void print_board(Board board) {
+	system ("clear");
+
     int line,col;
 
     for (line = 0; line < 8; line++) {
+    	printf ("%d |", 8 - line);
         for (col = 0; col < 8; col++) {
             if (board.cell[line][col].fill) {
                 switch (board.cell[line][col].piecetype) {
                 case Pawn:
                     if (board.cell[line][col].piececolor == White) {
-                        printf("P");
+                        printf("P ");
                     } else {
-                        printf("p");
+                        printf("p ");
                     }
                     break;
                 case Rook:
                     if (board.cell[line][col].piececolor == White) {
-                        printf("R");
+                        printf("R ");
                     } else {
-                        printf("r");
+                        printf("r ");
                     }
                     break;
                 case Horse:
                     if (board.cell[line][col].piececolor == White) {
-                        printf("H");
+                        printf("H ");
                     } else {
-                        printf("h");
+                        printf("h ");
                     }
                     break;
                 case Bishop:
                     if (board.cell[line][col].piececolor == White) {
-                        printf("B");
+                        printf("B ");
                     } else {
-                        printf("b");
+                        printf("b ");
                     }
                     break;
                 case Queen:
                     if (board.cell[line][col].piececolor == White) {
-                        printf("Q");
+                        printf("Q ");
                     } else {
-                        printf("q");
+                        printf("q ");
                     }
                     break;
                 case King:
                     if (board.cell[line][col].piececolor == White) {
-                        printf("K");
+                        printf("K ");
                     } else {
-                        printf("k");
+                        printf("k ");
                     }
                     break;
                 }
+            } else {
+            	printf ("* ");
             }
             
             if (col == 7) {
@@ -58,6 +64,8 @@ void print_board(Board board) {
             }
         }
     }
+    printf ("   ---------------\n");
+    printf ("   A B C D E F G H \n");
 }
 
 void init_board(Board* board){
@@ -65,7 +73,7 @@ void init_board(Board* board){
     
     for (col = 0; col < 8; col++) {
         for(line = 0; line < 8; line++) {
-            board->cell[line][col].fill = 0;
+            board->cell[line][col].fill = false;
         }
     }
 }

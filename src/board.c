@@ -144,7 +144,7 @@ int move_check (char *move, Board *board) {
 	switch (board->cell[st[0]][st[1]].piecetype) {
 	case Pawn:
 		if ((linedif == 1 || linedif == -1) && coldif == 0) {
-			if (board->cell[st[0]][st[1]].piececolor == White &&\
+			if (board->cell[st[0]][st[1]].piececolor == White &&
 				 											linedif == -1) {
 				free (st);
 				free (en);

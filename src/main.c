@@ -3,11 +3,14 @@
 #include "theme.h"
 #include <stdio.h>
 
+void flush_input(void);
+
+
 int main () {
 
-char string[15];
+char string[12];
 char ch;
-int j = 0;
+int read = 0;
 
 Board *game = NULL;
 
@@ -20,24 +23,42 @@ print_board(game);
 printf(AQUA BLACKF "GAME START\n" DEFAULT);
 
 for (int i = 1;;i++) {
+	read = 0;
+
 	printf(AQUA BLACKF);
 
 	printf("%d. ", i);
 
+	for (int i = 0; i < sizeof(string); i++) {
+		string [i] = ' ';
+	}
+
 	do {
-		ch = getc (stdin);
+		ch = getchar ();
 		if (ch == 'q' || ch == 'Q') {
 			return 0;
 		}
-		string [j] = ch;
-		j ++;
+
+		string [read] = ch;
+
+		if (read == 13) {
+			flush_input();
+			break;
+		}
+
+		read++;
 	} while (ch != '\n');
 
-	j = 0;
+	if (string [11] != '\n' && string [5] != '\n') {
+		print_board (game);
+		printf(CRED BLACKF "INPUT ERROR\n" AQUA BLACKF);
+		i--;
+		continue;
+	}
 
 	if (move (string, game) == 0) {
 		print_board(game);
-		
+
 		printf(AQUA BLACKF);
 
 		if (game_status(game) == 0) {
@@ -51,16 +72,27 @@ for (int i = 1;;i++) {
 			printf("GREEN WIN\n");
 			return 0;
 		} else {
-			printf(DEFAULT RED BLACKF "ERROR\n");
+			printf(DEFAULT RED BLACKF "GAME ERROR\n");
 			return 0;
 		}
 		continue;
 	} else {
-		printf(CRED BLACKF "ERROR\n" AQUA BLACKF);
+		print_board (game);
+		printf(CRED BLACKF "WRONG MOVE\n" AQUA BLACKF);
 		i--;
 		continue;
 	}
 }
 
 return 0;
+}
+
+void flush_input(void)
+{
+    char c;
+
+	c = getc(stdin);
+    while (c != '\n') {
+		c = getc(stdin);
+	}
 }

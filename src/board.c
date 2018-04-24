@@ -110,7 +110,7 @@ int move_check (char *move, Board *board) {
 	}
 
 	int linedif = st[0] - en[0];
-	int coldif = st[1] - en[1];
+	int coldif = en[1] - st[1];
 
 	if (board->cell[st[0]][st[1]].fill == false) {
 		return -1;
@@ -118,6 +118,10 @@ int move_check (char *move, Board *board) {
 
 	switch (board->cell[st[0]][st[1]].piecetype) {
 	case Pawn:
+		if (board->cell[en[0]][en[1]].fill) {
+			return -1;
+		}
+
 		if ((linedif == 1 || linedif == -1) && coldif == 0) {
 			if (board->cell[st[0]][st[1]].piececolor == White &&
 				 											linedif == -1) {
@@ -132,10 +136,9 @@ int move_check (char *move, Board *board) {
 			((st[0] == 1 && board->cell[st[0]][st[1]].piececolor == Black) ||
 			(st[0] == 6 && board->cell[st[0]][st[1]].piececolor == White))) {
 			return 0;
-		} else {
-			return -1;
 		}
 		break;
+
 	case Rook:
 		if ((linedif != 0 && (linedif < 8 || linedif > -8)) && coldif == 0) {
 			if (linedif > 0) {
@@ -155,23 +158,22 @@ int move_check (char *move, Board *board) {
 		} else if ((coldif != 0 && (coldif < 8 || coldif > -8))
 		 													&& linedif == 0) {
 			if (coldif > 0) {
-				for (int col = st[1] - 1; col > en[1]; col--) {
+				for (int col = st[1] + 1; col < en[1]; col++) {
 					if (board->cell[st[0]][col].fill) {
 						return -1;
 					}
 				}
 			} else if (coldif < 0) {
-				for (int col = st[1] + 1; col < en[1]; col++) {
+				for (int col = st[1] - 1; col > en[1]; col--) {
 					if (board->cell[st[0]][col].fill) {
 						return -1;
 					}
 				}
 			}
 			return 0;
-		} else {
-			return -1;
 		}
 		break;
+
 	case Horse:
 		if (linedif == 2 || linedif == -2) {
 			if (coldif == 1 || coldif == -1) {
@@ -181,8 +183,157 @@ int move_check (char *move, Board *board) {
 			if (linedif == 1 || linedif == -1) {
 				return 0;
 			}
-		} else {
-			return -1;
+		}
+		break;
+
+	case Bishop:
+		if ((linedif == coldif) && (coldif != 0)) {
+			if (linedif > 0) {
+				int col = st[1];
+
+				for (int line = st[0] - 1; line > en [0]; line--) {
+					col++;
+
+					if (board->cell[line][col].fill) {
+						return -1;
+					}
+				}
+			} else if (linedif < 0) {
+				int col = st[1];
+
+				for (int line = st[0] + 1; line < en [0];  line ++) {
+					col--;
+
+					if (board->cell[line][col].fill) {
+						return -1;
+					}
+				}
+			}
+			return 0;
+		} else if (((-linedif) == coldif) && (coldif != 0)) {
+			if (linedif > 0) {
+				int col = st[1];
+
+				for (int line = st[0] - 1; line > en [0]; line--) {
+					col--;
+
+					if (board->cell[line][col].fill) {
+						return -1;
+					}
+				}
+			} else if (linedif < 0) {
+				int col = st[1];
+
+				for (int line = st[0] + 1; line < en [0];  line ++) {
+					col++;
+
+					if (board->cell[line][col].fill) {
+						return -1;
+					}
+				}
+			}
+			return 0;
+		}
+		break;
+
+	case Queen:
+		if ((linedif != 0 && (linedif < 8 || linedif > -8)) && coldif == 0) {
+			if (linedif > 0) {
+				for (int line = st[0] - 1; line > en[0]; line--) {
+					if (board->cell[line][st[1]].fill) {
+						return -1;
+					}
+				}
+			} else if (linedif < 0) {
+				for (int line = st[0] + 1; line < en[0]; line++) {
+					if (board->cell[line][st[1]].fill) {
+						return -1;
+					}
+				}
+			}
+			return 0;
+		} else if ((coldif != 0 && (coldif < 8 || coldif > -8))
+		 													&& linedif == 0) {
+			if (coldif > 0) {
+				for (int col = st[1] + 1; col < en[1]; col++) {
+					if (board->cell[st[0]][col].fill) {
+						return -1;
+					}
+				}
+			} else if (coldif < 0) {
+				for (int col = st[1] - 1; col > en[1]; col--) {
+					if (board->cell[st[0]][col].fill) {
+						return -1;
+					}
+				}
+			}
+			return 0;
+		} else if ((linedif == coldif) && (coldif != 0)) {
+			if (linedif > 0) {
+				int col = st[1];
+
+				for (int line = st[0] - 1; line > en [0]; line--) {
+					col++;
+
+					if (board->cell[line][col].fill) {
+						return -1;
+					}
+				}
+			} else if (linedif < 0) {
+				int col = st[1];
+
+				for (int line = st[0] + 1; line < en [0];  line ++) {
+					col--;
+
+					if (board->cell[line][col].fill) {
+						return -1;
+					}
+				}
+			}
+			return 0;
+		} else if (((-linedif) == coldif) && (coldif != 0)) {
+			if (linedif > 0) {
+				int col = st[1];
+
+				for (int line = st[0] - 1; line > en [0]; line--) {
+					col--;
+
+					if (board->cell[line][col].fill) {
+						return -1;
+					}
+				}
+			} else if (linedif < 0) {
+				int col = st[1];
+
+				for (int line = st[0] + 1; line < en [0];  line ++) {
+					col++;
+
+					if (board->cell[line][col].fill) {
+						return -1;
+					}
+				}
+			}
+			return 0;
+		}
+		break;
+
+	case King:
+		for (int lined = 0; lined < 2; lined++) {
+			for (int cold = 0; cold < 2; cold++) {
+				if ((cold == 0) && (lined == cold)) {
+					continue;
+				} else {
+					if ((linedif == lined) && (coldif == cold)) {
+						return 0;
+					} else if ((linedif == (-lined)) && (coldif == (-cold))) {
+						return 0;
+					} else if ((linedif == lined) && (coldif == (-cold))) {
+						return 0;
+					} else if ((linedif == (-lined)) && (coldif == cold)) {
+						return 0;
+					}
+				}
+			}
 		}
 		break;
 

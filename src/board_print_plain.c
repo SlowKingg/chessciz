@@ -8,8 +8,10 @@ void print_board (Board *board) {
 
     int line,col;
 
+	printf (AQUA BLACKF BOLD"    A  B  C  D  E  F  G  H   \n" DEFAULT);
+	printf (AQUA BLACKF BOLD"—————————————————————————————\n" DEFAULT);
     for (line = 0; line < 8; line++) {
-    	printf (AQUA BLACKF "%d " BOLD "|" DEFAULT, 8 - line);
+    	printf (AQUA BLACKF BOLD "%d ꟾ" DEFAULT, 8 - line);
         for (col = 0; col < 8; col++) {
             if (board->cell[line][col].fill) {
                 switch (board->cell[line][col].piecetype) {
@@ -116,13 +118,14 @@ void print_board (Board *board) {
 			}
 
             if (col == 7) {
+    			printf (AQUA BLACKF BOLD "ꟾ %d" DEFAULT, 8 - line);
                 printf("\n");
             }
         }
     }
-    printf (AQUA BLACKF BOLD"  -------------------------\n" DEFAULT);
-    printf (AQUA BLACKF "    A  B  C  D  E  F  G  H \n" DEFAULT);
-	printf( AQUA BLACKF "                           \n" DEFAULT);
+	printf (AQUA BLACKF BOLD"—————————————————————————————\n" DEFAULT);
+    printf (AQUA BLACKF BOLD"    A  B  C  D  E  F  G  H   \n" DEFAULT);
+	printf( AQUA BLACKF "                             \n" DEFAULT);
 }
 
 Board* init_board (Board *board){

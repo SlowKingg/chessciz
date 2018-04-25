@@ -53,5 +53,6 @@ dkms.conf
 
 /bin/chess
 /bin/chess_debug
+/bin/chesstest
 .tags
 .tags1

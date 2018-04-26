@@ -2,9 +2,9 @@
 #include "board_print_plain.h"
 #include "theme.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void flush_input(void);
-
 
 int main () {
 
@@ -64,12 +64,14 @@ for (int i = 1;;i++) {
 		if (game_status(game) == 0) {
 			printf("GAME IN PROCESS\n");
 		} else if (game_status(game) == 1) {
+			system("clear");
 			printf("GAME OVER\n");
 			printf("RED WIN\n");
 			return 0;
 		} else if (game_status(game) == 2) {
+			system("clear");
 			printf("GAME OVER\n");
-			printf("GREEN WIN\n");
+			printf("\tGREEN WIN\n");
 			return 0;
 		} else {
 			printf(DEFAULT RED BLACKF "GAME ERROR\n");

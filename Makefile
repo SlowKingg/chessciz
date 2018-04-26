@@ -18,14 +18,21 @@ testflag = -I thirdparty -I src -c
 
 test: ./bin/chesstest
 
-./bin/chesstest: ./build/test/main.o ./build/test/board_test.o
-	$(C) ./build/test/main.o ./build/test/board_test.o -o ./bin/chesstest
+./bin/chesstest: ./build/test/main.o ./build/test/board_test.o ./build/test/test.o ./build/src/sum.o
+	$(C) ./build/test/main.o ./build/test/board_test.o ./build/test/test.o ./build/src/sum.o -o ./bin/chesstest
 
 ./build/test/main.o: ./test/main.c
 	$(C) $(testflag) ./test/main.c -o ./build/test/main.o
 
 ./build/test/board_test.o: ./test/board_test.c
 	$(C) $(testflag) ./test/board_test.c -o ./build/test/board_test.o
+
+./build/test/test.o: ./test/test.c
+	$(C) $(testflag) ./test/test.c -o ./build/test/test.o
+
+./build/src/sum.o: ./src/sum.h
+	$(C) $(flag) ./src/sum.c -o ./build/src/sum.o
+
 
 .PHONY: clean
 clean:

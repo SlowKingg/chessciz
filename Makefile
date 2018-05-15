@@ -1,7 +1,8 @@
 C = gcc
 flag = -c -Wall -Werror -std=c99
 debugflag = -Wall -Werror -std=c99 -g -O0
-testflag = -I thirdparty -I src -c
+testflag = -c -I thirdparty -I src
+
 
 ./bin/chess: ./build/src/main.o ./build/src/board_print_plain.o ./build/src/board.o
 	$(C) ./build/src/main.o  ./build/src/board_print_plain.o ./build/src/board.o -o ./bin/chess
@@ -16,11 +17,12 @@ testflag = -I thirdparty -I src -c
 ./build/src/board.o: ./src/board.c
 	$(C) $(flag) ./src/board.c -o ./build/src/board.o
 
+
 test: ./bin/chesstest
 	./bin/chesstest
 
 ./bin/chesstest: ./build/test/main.o ./build/test/board_test.o ./build/test/test.o ./build/src/sum.o
-	$(C) ./build/test/main.o ./build/test/board_test.o ./build/test/test.o ./build/src/sum.o -o ./bin/chesstest
+	$(C) ./build/test/main.o ./build/test/board_test.o ./build/test/test.o ./build/src/sum.o ./build/src/board_print_plain.o ./build/src/board.o -o ./bin/chesstest
 
 ./build/test/main.o: ./test/main.c
 	$(C) $(testflag) ./test/main.c -o ./build/test/main.o

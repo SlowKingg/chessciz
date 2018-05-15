@@ -3,9 +3,9 @@
 
 int move (char *s, Board *board) {
 
-	char m1 [4];
+	char m1 [4] = "";
 
-	char m2 [4];
+	char m2 [4] = "";
 
 	if (str_to_moves (s, m1, m2) == 2) {
 		if (move_check (m1, board) == 0) {

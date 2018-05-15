@@ -17,6 +17,7 @@ testflag = -I thirdparty -I src -c
 	$(C) $(flag) ./src/board.c -o ./build/src/board.o
 
 test: ./bin/chesstest
+	./bin/chesstest
 
 ./bin/chesstest: ./build/test/main.o ./build/test/board_test.o ./build/test/test.o ./build/src/sum.o
 	$(C) ./build/test/main.o ./build/test/board_test.o ./build/test/test.o ./build/src/sum.o -o ./bin/chesstest

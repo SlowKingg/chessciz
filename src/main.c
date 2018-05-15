@@ -65,12 +65,12 @@ for (int i = 1;;i++) {
 			printf("GAME IN PROCESS\n");
 		} else if (game_status(game) == 1) {
 			system("clear");
-			printf("GAME OVER\n");
-			printf("RED WIN\n");
+			printf("\tGAME OVER\n");
+			printf("\tRED WIN\n");
 			return 0;
 		} else if (game_status(game) == 2) {
 			system("clear");
-			printf("GAME OVER\n");
+			printf("\tGAME OVER\n");
 			printf("\tGREEN WIN\n");
 			return 0;
 		} else {

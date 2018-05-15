@@ -118,8 +118,12 @@ int move_check (char *move, Board *board) {
 
 	switch (board->cell[st[0]][st[1]].piecetype) {
 	case Pawn:
-		if (board->cell[en[0]][en[1]].fill) {
+		if (board->cell[en[0]][en[1]].fill && coldif == 0 ) {
 			return -1;
+		}
+
+		if (board->cell[en[0]][en[1]].fill && (coldif == -1 || coldif == 1) && (linedif == -1 || linedif == 1)) {
+			return 0;
 		}
 
 		if ((linedif == 1 || linedif == -1) && coldif == 0) {

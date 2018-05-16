@@ -79,6 +79,6 @@ CTEST(move_check, rook_move_false)
 	const int result = move_check(mv, game);
 
 	// Then
-	const int expected = 0;
+	const int expected = -1;
 	ASSERT_EQUAL(expected, result);
 }
